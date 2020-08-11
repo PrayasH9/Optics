@@ -6,7 +6,7 @@
 			<%= user.firstName + " " + user.lastName %>
 		</h1>
 		<div class="card">
-			<img src="<%= user.avatar %>" alt="user profile image">
+			<img src="<%= user.avatar %>" class="card-img-top" alt="user profile image">
 			<div class="card-body">
 				<a href="/follow/<%= user.id %>">
 					<button class="btn btn-primary">Follow <%= user.username %></button>
@@ -19,11 +19,16 @@
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 	</div>
 	<div class="col-md-8">
-		<ul>
-			<% optics.forEach(function(optics){ %>
-				<li><a href="/optics/<%= optics.id %>"><%= optics.name %></a></li>
-			<% }); %>
-		</ul>
+		<div class="row">
+			<div class="card-columns">
+				<% optics.forEach(function(optics){ %>
+				<div class="col-md-6">
+						<a href="/optics/<%= optics.id %>"><%= optics.name %></a>
+						<img src="<%= optics.image %>" class="card-img-top" alt="<%= optics.name %>">
+				</div>
+				<% }); %>
+			</div>
+		</div>
 	</div>
 </div>
 
