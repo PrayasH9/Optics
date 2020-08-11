@@ -20,9 +20,9 @@
 	</div>
 	<div class="col-md-8">
 		<div class="row">
-			<div class="card-columns">
+			<div id="card-columns" class="card-columns">
 				<% optics.forEach(function(optics){ %>
-				<div class="col-md-6">
+				<div class="card">
 						<a href="/optics/<%= optics.id %>"><%= optics.name %></a>
 						<img src="<%= optics.image %>" class="card-img-top" alt="<%= optics.name %>">
 				</div>

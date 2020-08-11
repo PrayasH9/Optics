@@ -110,6 +110,7 @@ body {
   opacity: 0;
   transition: .2s ease;
   background-color: #008CBA;
+  border: 15px solid #ffffff;
 }
 
 .likes {
@@ -135,6 +136,10 @@ body {
   -ms-transform: translate(-50%, -50%);
 }
 
+.card-pin {
+	border: 5px solid #f2f0f0;
+}
+
 .card-pin:hover .overlay {
   opacity: .3;
   border: 5px solid #f3f3f3;
@@ -155,11 +160,44 @@ body {
   color: #ffffff;
 }
 
-.card-columns {
-  @include media-breakpoint-only(lg) {
-    column-count: 4;
-  }
-  @include media-breakpoint-only(xl) {
-    column-count: 5;
-  }
+@media (min-width: 576px) {
+    .card-columns {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-columns {
+        column-count: 3;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-columns {
+        column-count: 4;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-columns {
+        column-count: 4;
+    }
+}
+
+@media (min-width: 768px) {
+    #card-columns {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 992px) {
+    #card-columns {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 1200px) {
+    #card-columns {
+        column-count: 2;
+    }
 }

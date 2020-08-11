@@ -27,9 +27,8 @@
 
 	<div class="card-columns">
 	<% optics.forEach(function(optics){ %>
-	<div class="col-md-12 col-sm-12 mb-2">
-		<div class="card card-pin">
-			<img src="<%= optics.image %>" class="card-img" alt="<%= optics.name %>">
+		<div class="card card-pin mb-3">
+			<img src="<%= optics.image %>" class="card-img-top" alt="<%= optics.name %>">
 			<div class="overlay">
 				<h5 class="card-title title"><%=optics.name %></h5>
 				<div class="likes">
@@ -52,7 +51,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	<% }); %>
 	</div>
 </div>
