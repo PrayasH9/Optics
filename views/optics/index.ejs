@@ -14,6 +14,7 @@
 
 <div class="row text-center">
 	<div class="col-md-12">
+		<!-- Search bar -->
 		<% if(noMatch !== null) { %>
 		<h3><%= noMatch %></h3>
 			<form action="/optics" method="GET" class="form-inline">
@@ -25,31 +26,16 @@
 		<% } %>
 	</div>
 
+<!-- Images -->
 	<div class="card-columns">
 	<% optics.forEach(function(optics){ %>
 		<div class="card card-pin mb-3">
 			<img src="<%= optics.image %>" class="card-img-top" alt="<%= optics.name %>">
-			<div class="overlay">
-				<h5 class="card-title title"><%=optics.name %></h5>
-				<div class="likes">
-					<div class="btn-group">
-						<% if (currentUser && optics.likes.some(function (like) {
-							return like.equals(currentUser._id)
-						})) { %>
-						<button class="btn btn-sm btn-primary">
-							<i class="fas fa-thumbs-up"></i>
-						</button>
-						<% } else { %>
-						<button class="btn btn-sm btn-secondary">
-							<i class="fas fa-thumbs-up"></i>
-						</button>
-						<% } %>
-					</div>
+			<a href="/optics/<%= optics.slug %>">
+				<div class="overlay">
+					<h5 class="card-title title"><%=optics.name %></h5>
 				</div>
-				<div class="more">
-					<a href="/optics/<%= optics.slug %>" class="btn btn-primary"><i class="far fa-arrow-alt-circle-right"></i>More Info</a>
-				</div>
-			</div>
+			</a>
 		</div>
 	<% }); %>
 	</div>
