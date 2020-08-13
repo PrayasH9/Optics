@@ -22,9 +22,13 @@
 		<div class="row">
 			<div id="card-columns" class="card-columns">
 				<% optics.forEach(function(optics){ %>
-				<div class="card">
-						<a href="/optics/<%= optics.id %>"><%= optics.name %></a>
-						<img src="<%= optics.image %>" class="card-img-top" alt="<%= optics.name %>">
+				<div class="card card-pin">
+					<img src="<%= optics.image %>" class="card-img-top" alt="<%= optics.name %>">
+					<a href="/optics/<%= optics.slug %>">
+						<div class="overlay">
+							<h5 class="card-title title"><%=optics.name %></h5>
+						</div>
+					</a>
 				</div>
 				<% }); %>
 			</div>
