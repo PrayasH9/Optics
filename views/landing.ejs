@@ -8,7 +8,7 @@
     </head>
     <body>
     
-    <div class="container">
+	<div class="container">
         <% if(error && error.length > 0){ %>
             <div class="alert alert-danger" role="alert">
                 <%= error %>
@@ -19,11 +19,10 @@
                 <%= success %>
             </div>
         <% } %>
-    </div>
     
     <div id="landing-header">
  		<h1>Welcome to Optics!</h1>
-		<a href="/optics" class="btn btn-lg btn-success">View All Images</a>
+		<a href="/optics" class="btn btn-lg btn-info">View All Images</a>
 		<form action="/optics" method="GET" class="form-inline">
 			<div id="search-bar" class="form-group">
 				<input type="text" name="search" placeholder="Image search..." class="form-control mr-sm-2">
