@@ -16,12 +16,18 @@ var opticsRoutes = require("./routes/optics"),
 	commentRoutes    = require("./routes/comments"),
 	indexRoutes       = require("./routes/index");
 
-mongoose.connect("mongodb://localhost:27017/optics_v1", {
+var url = process.env.DATABASEURL || "mongodb://localhost:27017/optics_v1"
+mongoose.connect(url, {
 	useUnifiedTopology: true,
 	useNewUrlParser: true,
 	useFindAndModify: false,
 	useCreateIndex: true
+}).then(() => {
+	console.log("connected to DB");
+}).catch(err => {
+	console.log("ERROR", err.message);
 });
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
