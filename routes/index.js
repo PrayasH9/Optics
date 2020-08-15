@@ -8,6 +8,28 @@ var middleware = require("../middleware");
 var async = require("async");
 var nodemailer = require("nodemailer");
 var crypto = require("crypto");
+// for image upload
+var multer = require('multer');
+var storage = multer.diskStorage({
+  filename: function(req, file, callback) {
+    callback(null, Date.now() + file.originalname);
+  }
+});
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+        return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter})
+
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'dtqkfox8c', 
+  api_key: process.env.CLOUDINARY_API_KEY, 
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 // Root route
 router.get("/", function(req, res){
@@ -22,25 +44,30 @@ router.get("/register", function(req, res){
 });
 
 // handle sign up logic
-router.post("/register", function(req, res){
-	var newUser = new User({
-			username: req.body.username,
-			firstName: req.body.firstName,
-			lastName: req.body.lastName,
-			email: req.body.email,
-			avatar: req.body.avatar
-	    });
-	if(req.body.adminCode === "secretcode123"){
-		newUser.isAdmin = true;
-	}
-	User.register(newUser, req.body.password, function(err, user){
-		if(err){
-			console.log(err);
-			return res.render("register", {error: err.message});
+router.post("/register", upload.single('avatar'), function(req, res){
+	cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
+		if(err) {
+			req.flash('error', err.message);
+			return res.redirect('back');
 		}
-		passport.authenticate("local")(req, res, function(){
-			req.flash("success", "Successfully Signed Up! Nice to meet you " + user.username);
-			res.redirect("/optics");
+		// add cloudinary url for the image to the optics object under avatar property
+        req.body.user.avatar = result.secure_url;
+        // add image's public_id to optics object
+        req.body.user.imageId = result.public_id;
+		
+// 		check admin
+		if(req.body.adminCode === "secretcode123"){
+			newUser.isAdmin = true;
+		}
+		User.register(req.body.user, req.body.password, function(err, user){
+			if(err){
+				console.log(err);
+				return res.render("register", {error: err.message});
+			}
+			passport.authenticate("local")(req, res, function(){
+				req.flash("success", "Successfully Signed Up! Nice to meet you " + user.username);
+				res.redirect("/optics");
+			});
 		});
 	});
 });
